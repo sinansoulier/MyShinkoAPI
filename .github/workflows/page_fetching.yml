@@ -4,7 +4,7 @@ on: [ push ]
 
 jobs:
   page-fetching:
-    runs-on: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
 
     strategy:
       matrix:
