@@ -1,7 +1,7 @@
 // - Imports
-import { fetchBody } from "./pageFetcher.js";
-import { generateDocument } from "../utils/functions.js";
-import {AppConstants} from "../utils/appConstants.js";
+import { fetchBody } from "./fetcher.js";
+import { generateDocument } from "../../utils/functions.js";
+import {AppConstants} from "../../utils/appConstants.js";
 
 /**
  * Get booking button information
