@@ -1,16 +1,22 @@
 name: Page Fetching
 
-on:
-  push:
-    branches:
-      - develop
-      - main
+on: [ push ]
 
 jobs:
-  test:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: actions/checkout@v2
+  page-fetching:
+    runs-on: ubuntu-latest
 
-      - name: Test
-        run: echo "Hello Test"
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '15.x'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Page Fetching
+        run: node index.js
+        env:
+          SHINKO_BASE_URL: "https://www.shinkoparis.fr/"
