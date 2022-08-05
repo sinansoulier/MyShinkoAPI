@@ -3,16 +3,19 @@ name: Page Fetching
 on: [ push ]
 
 jobs:
-  page-fetching:
-    runs-on: ubuntu-latest
-
+  scraper:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 10.x, 12.x, 14.x, 15.x ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
     steps:
       - uses: actions/checkout@v3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '15.x'
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm install
 
