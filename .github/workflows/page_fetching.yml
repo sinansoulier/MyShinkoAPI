@@ -22,4 +22,4 @@ jobs:
       - name: Run Page Fetching
         run: node index.js
         env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr/"
+          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
