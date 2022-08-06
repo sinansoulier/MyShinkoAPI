@@ -1,8 +1,8 @@
 import { printBaseURL } from "./src/scraper/mainPage/fetcher.js";
-import { fetchBookingButtonHref } from "./src/scraper/mainPage/analysis.js";
+import { fetchBookingPageBody } from "./src/scraper/bookingPage/fetcher.js";
 
 // Test function call
 printBaseURL()
 
-await fetchBookingButtonHref()
-
+let responseText = await fetchBookingPageBody()
+console.log(responseText)

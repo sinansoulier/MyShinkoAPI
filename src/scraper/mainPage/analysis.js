@@ -1,7 +1,7 @@
 // - Imports
+// Project functions
 import { fetchBody } from "./fetcher.js";
 import { generateDocument } from "../../utils/functions.js";
-import {AppConstants} from "../../utils/appConstants.js";
 
 /**
  * Get booking button information
