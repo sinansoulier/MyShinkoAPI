@@ -10,7 +10,19 @@ import { fetchBookingPageBody } from "./fetcher.js";
 /**
  * Extract booking page availability information (as dates)
  */
-async function extractBookingPageAvailabilities() {
+async function extractBookingPageAvailabilities(test = false) {
+    if (test) {
+        return [
+            'mar. 20 septembre',
+            'mer. 21 septembre',
+            'jeu. 22 septembre',
+            'lun. 26 septembre',
+            'mar. 27 septembre',
+            'mer. 28 septembre',
+            'jeu. 29 septembre',
+            'ven. 30 septembre'
+        ]
+    }
     let responseText = await fetchBookingPageBody()
     if (responseText === null) {
         return null
