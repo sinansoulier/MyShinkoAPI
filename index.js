@@ -1,8 +1,8 @@
 import { printBaseURL } from "./src/scraper/mainPage/fetcher.js";
-import { fetchBookingPageBody } from "./src/scraper/bookingPage/fetcher.js";
+import { extractBookingPageAvailabilities } from "./src/scraper/bookingPage/analysis.js";
 
 // Test function call
 printBaseURL()
 
-let responseText = await fetchBookingPageBody()
-console.log(responseText)
+let availability = await extractBookingPageAvailabilities()
+console.log(availability)
