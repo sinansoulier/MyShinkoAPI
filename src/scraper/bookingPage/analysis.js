@@ -9,6 +9,7 @@ import { fetchBookingPageBody } from "./fetcher.js";
 
 /**
  * Extract booking page availability information (as dates)
+ * @param {boolean} - Indicates whether the function is use in testing scope or not
  */
 async function extractBookingPageAvailabilities(test = false) {
     if (test) {
