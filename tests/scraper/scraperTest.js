@@ -17,7 +17,7 @@ async function checkScrapingDeterminism(numberOfIterations) {
     })
 }
 
-let result = await checkScrapingDeterminism(2)
+let result = await checkScrapingDeterminism(7)
 if (!result) {
     throw 'Error: Scraper not deterministic'
 }
