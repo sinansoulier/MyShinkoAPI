@@ -7,17 +7,20 @@ import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/anal
 async function checkScrapingDeterminism(numberOfIterations) {
     let results = (await Promise.all(
         Array(numberOfIterations).fill(numberOfIterations).map(extractBookingAvailabilities)
-    )).flatMap(res => res)
+    ))
     if (!results.length) {
         return true
     }
     console.log(results)
-    return results.every(elt => {
-        return elt === results[0]
-    })
+    let checker = true
+    for (let i = 0; (i < numberOfIterations - 1) && checker; i++) {
+        for (let j = 0; j < results[0].length && checker; j++)
+            checker = results[i][j] === results[i + 1][j]
+    }
+    return checker
 }
 
-let result = await checkScrapingDeterminism(7)
+let result = await checkScrapingDeterminism(2)
 if (!result) {
     throw 'Error: Scraper not deterministic'
 }
