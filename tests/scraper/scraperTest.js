@@ -11,7 +11,6 @@ async function checkScrapingDeterminism(numberOfIterations) {
     if (!results.length) {
         return true
     }
-    console.log(results)
     let checker = true
     for (let i = 0; (i < numberOfIterations - 1) && checker; i++) {
         for (let j = 0; j < results[0].length && checker; j++)
@@ -20,7 +19,7 @@ async function checkScrapingDeterminism(numberOfIterations) {
     return checker
 }
 
-let result = await checkScrapingDeterminism(2)
+let result = await checkScrapingDeterminism(3)
 if (!result) {
     throw 'Error: Scraper not deterministic'
 }
