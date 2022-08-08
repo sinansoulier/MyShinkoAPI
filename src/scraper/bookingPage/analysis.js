@@ -1,55 +1,79 @@
 // - Imports
 // Modules
 import cheerio from 'cheerio'
+import puppeteer from 'puppeteer';
 
 // Project functions
-import { fetchBookingPage } from "./fetcher.js";
-import {AppConstants} from "../../utils/appConstants.js";
+import { fetchBookingButtonHref } from "../mainPage/analysis.js";
+import { AppConstants } from "../../utils/appConstants.js";
 
 // - Functions
+
+async function getNewBrowserPage(browser, bookingPath) {
+    const page = await browser.newPage()
+    await page.goto(AppConstants.Shinko.buildPath(bookingPath), {waitUntil: 'networkidle0'})
+    return page
+}
+
+async function extractBookingTimeTables(page) {
+    let pageContent = await page.content()
+    let $ = cheerio.load(pageContent)
+
+    let hourDates = []
+    let hourButtonList = $('div[class="sc-bdfBQB sc-gsTEea lavsoq hHhNXG"]')
+    hourButtonList.each((index, element) => {
+        hourDates = $(element).text().match(/.{1,5}/g)
+    })
+    return hourDates
+}
+
+async function extractBookingTimeTablesFromButtons(numberDayButtons, browser, bookingPath) {
+    let hourDates = []
+    let promises = []
+    for (let i = 0; i < numberDayButtons; i++) {
+        let promise = (async () => {
+            let newPage = await getNewBrowserPage(browser, bookingPath)
+            let buttons = await newPage.$$('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
+            await buttons[i].click()
+            let timeTables = await extractBookingTimeTables(newPage)
+            hourDates.push([i, timeTables])
+        })
+        promises.push(promise())
+    }
+    await Promise.all(promises)
+    hourDates.sort((a, b) => a[0] - b[0])
+    return hourDates.map(e => e[1])
+}
 
 /**
  * Extract booking page availability information (as dates)
  */
-
 async function extractBookingAvailabilities() {
-    let response = await fetchBookingPage()
-    if (response === null) {
+    let bookingPath = await fetchBookingButtonHref()
+    if (bookingPath === null) {
         throw 'Could not fetch booking page body'
     }
+    const browser = await puppeteer.launch({headless: true});
+    let page = await getNewBrowserPage(browser, bookingPath)
+    let pageContent = await page.content()
 
-    let responseText = await response.page.content()
     // Booking availability
-    let dates = []
-    let $ = cheerio.load(responseText)
+    let dayDates = []
+
+    let $ = cheerio.load(pageContent)
     let dayButtonList = $('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
     if (dayButtonList.length > 0) {
         dayButtonList.each((index, element) => {
-            dates.push($(element).text())
+            dayDates.push($(element).text())
         })
-        let hourDates = []
-        for (let i = 0; i < dayButtonList.length; i++) {
-            let tempPage = await response.browser.newPage()
-            await tempPage.goto(AppConstants.Shinko.buildPath(response.bookingPath), {waitUntil: 'networkidle0'})
-            let buttons = await tempPage.$$('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
-            await buttons[i].click()
-            let pageContent = await tempPage.content()
-            $ = cheerio.load(pageContent)
 
-            let hourButtonList = $('div[class="sc-bdfBQB sc-gsTEea lavsoq hHhNXG"]')
-            hourButtonList.each((index, element) => {
-                hourDates.push($(element).text().match(/.{1,5}/g))
-            })
-            // FIXME
-
-        }
-        console.log(hourDates)
+        let hourDates = await extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
     } else {
         // FIXME: fetch booking availability details
         console.log("Booking available today!")
     }
-    await response.browser.close()
-    return dates
+    await browser.close()
+    return dayDates
 }
 
 export {
