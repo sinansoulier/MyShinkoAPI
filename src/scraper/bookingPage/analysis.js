@@ -6,6 +6,7 @@ import puppeteer from 'puppeteer';
 // Project functions
 import { fetchBookingButtonHref } from "../mainPage/analysis.js";
 import { AppConstants } from "../../utils/appConstants.js";
+import { DateUtils } from "../../utils/date.js";
 
 // - Functions
 
@@ -59,6 +60,7 @@ async function extractBookingAvailabilities() {
 
     // Booking availability
     let dayDates = []
+    let hourDates = []
 
     let $ = cheerio.load(pageContent)
     let dayButtonList = $('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
@@ -67,13 +69,18 @@ async function extractBookingAvailabilities() {
             dayDates.push($(element).text())
         })
 
-        let hourDates = await extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
+        hourDates = await extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
     } else {
         // FIXME: fetch booking availability details
         console.log("Booking available today!")
     }
     await browser.close()
-    return dayDates
+    let dates = []
+    for (let i = 0; i < dayDates.length; i++) {
+        let newDates = DateUtils.generateDatesFromTimeTable(dayDates[i], hourDates[i])
+        dates.push(newDates)
+    }
+    return dates.flatMap(elt => elt)
 }
 
 export {
