@@ -46,6 +46,10 @@ async function extractBookingTimeTablesFromButtons(numberDayButtons, browser, bo
     return hourDates.map(e => e[1])
 }
 
+async function extractTimeTableFromCurrentPage(page) {
+    // TODO
+}
+
 /**
  * Extract booking page availability information (as dates)
  */

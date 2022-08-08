@@ -4,5 +4,6 @@ import { extractBookingAvailabilities } from "./src/scraper/bookingPage/analysis
 // Test function call
 printBaseURL()
 
+// TODO: add documentation to new methods
 let dates = await extractBookingAvailabilities()
 console.log(dates)
