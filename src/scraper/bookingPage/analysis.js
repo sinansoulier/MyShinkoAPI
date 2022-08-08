@@ -13,7 +13,7 @@ import { fetchBookingPageBody } from "./fetcher.js";
 async function extractBookingPageAvailabilities() {
     let responseText = await fetchBookingPageBody()
     if (responseText === null) {
-        return null
+        throw 'Could not fetch booking page body'
     }
     let $ = cheerio.load(responseText)
     let dates = []
