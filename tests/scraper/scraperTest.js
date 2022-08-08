@@ -1,4 +1,4 @@
-import { extractBookingPageAvailabilities } from "../../src/scraper/bookingPage/analysis.js";
+import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/analysis.js";
 
 /**
  * Check that every call to scraper is the same on a number of iterations
@@ -6,7 +6,7 @@ import { extractBookingPageAvailabilities } from "../../src/scraper/bookingPage/
  */
 async function checkScrapingDeterminism(numberOfIterations) {
     let results = (await Promise.all(
-        Array(numberOfIterations).fill(numberOfIterations).map(extractBookingPageAvailabilities)
+        Array(numberOfIterations).fill(numberOfIterations).map(extractBookingAvailabilities)
     )).flatMap(res => res)
     if (!results.length) {
         return true

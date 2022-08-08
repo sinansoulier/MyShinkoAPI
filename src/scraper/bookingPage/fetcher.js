@@ -9,19 +9,18 @@ import { AppConstants } from "../../utils/appConstants.js";
 /**
  * Fetch booking page body
  */
-async function fetchBookingPageBody() {
-    let bookingPath = await fetchBookingButtonHref();
+
+async function fetchBookingPage() {
+    let bookingPath = await fetchBookingButtonHref()
     if (bookingPath === null) {
         return null
     }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
-    await page.goto(AppConstants.Shinko.buildPath(bookingPath), {waitUntil: 'networkidle0'});
-    let content = await page.content()
-    await browser.close();
-    return content
+    await page.goto(AppConstants.Shinko.buildPath(bookingPath), {waitUntil: 'networkidle0'})
+    return { browser, page, bookingPath}
 }
 
 export {
-    fetchBookingPageBody,
+    fetchBookingPage,
 }
