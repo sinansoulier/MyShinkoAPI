@@ -22,6 +22,23 @@ class AppConstants {
             return AppConstants.Shinko.baseURL + path
         }
     }
+
+    static Scraper = class {
+        /**
+         * Placeholder representing fake dates that can be retrieved from scraping
+         * @type {string[]}
+         */
+        static placholderDates = [
+            'mar. 20 septembre',
+            'mer. 21 septembre',
+            'jeu. 22 septembre',
+            'lun. 26 septembre',
+            'mar. 27 septembre',
+            'mer. 28 septembre',
+            'jeu. 29 septembre',
+            'ven. 30 septembre'
+        ]
+    }
 }
 
 export { AppConstants }

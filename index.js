@@ -4,5 +4,5 @@ import { extractBookingPageAvailabilities } from "./src/scraper/bookingPage/anal
 // Test function call
 printBaseURL()
 
-let availability = await extractBookingPageAvailabilities(true)
+let availability = await extractBookingPageAvailabilities()
 console.log(availability)
