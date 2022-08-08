@@ -1,27 +1,25 @@
 import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/analysis.js";
 
 /**
- * Check that every call to scraper is the same on a number of iterations
- * @param {number} numberOfIterations - Number of times the scraper is called
+ * Check that scraper works as intended
  */
-async function checkScrapingDeterminism(numberOfIterations) {
-    let results = (await Promise.all(
-        Array(numberOfIterations).fill(numberOfIterations).map(extractBookingAvailabilities)
-    ))
-    if (!results.length) {
-        return true
+async function checkScrapingWorker() {
+    try {
+        let results = await extractBookingAvailabilities()
+        console.log(results)
+    } catch {
+        throw "Error: Scraper did not run properly"
     }
-    let checker = true
-    for (let i = 0; (i < numberOfIterations - 1) && checker; i++) {
-        for (let j = 0; j < results[0].length && checker; j++)
-            checker = results[i][j] === results[i + 1][j]
-    }
-    return checker
+    return true
 }
 
-let result = await checkScrapingDeterminism(2)
-if (!result) {
-    throw 'Error: Scraper not deterministic'
+/**
+ * Test launcher
+ */
+async function launchTests() {
+    await checkScrapingWorker()
+    console.log("Scraper: OK")
 }
 
-console.log("Scraper: determinism OK")
+// Tests entry point
+await launchTests()
