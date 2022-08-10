@@ -46,10 +46,6 @@ async function extractBookingTimeTablesFromButtons(numberDayButtons, browser, bo
     return hourDates.map(e => e[1])
 }
 
-async function extractTimeTableFromCurrentPage(page) {
-    // TODO
-}
-
 /**
  * Extract booking page availability information (as dates)
  */
@@ -75,16 +71,11 @@ async function extractBookingAvailabilities() {
 
         hourDates = await extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
     } else {
-        // FIXME: fetch booking availability details
-        console.log("Booking available today!")
+        hourDates = await extractBookingTimeTables(page)
     }
     await browser.close()
-    let dates = []
-    for (let i = 0; i < dayDates.length; i++) {
-        let newDates = DateUtils.generateDatesFromTimeTable(dayDates[i], hourDates[i])
-        dates.push(newDates)
-    }
-    return dates.flatMap(elt => elt)
+
+    return DateUtils.generateDatesFromTimeTable(dayDates, hourDates)
 }
 
 export {

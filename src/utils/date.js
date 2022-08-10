@@ -21,14 +21,25 @@ class DateUtils {
         return year + increment
     }
 
-    static generateDatesFromTimeTable(dayDate, timeTable) {
+    static generateDatesFromTimeTable(dayDates, timeTable) {
         let dates = []
-        for (let time of timeTable) {
-            const splitMonthStr = dayDate.split(' ')
-            const monthStr = splitMonthStr[splitMonthStr.length - 1]
-            let dateStr = `${dayDate} ${DateUtils.getMonthYear(monthStr)} ${time} GMT-0000`
-            let date = new Date(dateStr).toISOString()
-            dates.push(date)
+        if (dayDates.length > 0) {
+            for (let i = 0; i < dayDates.length; i++) {
+                for (let time of timeTable[i]) {
+                    const splitMonthStr = dayDates.split(' ')
+                    const monthStr = splitMonthStr[splitMonthStr.length - 1]
+                    let dateStr = `${dayDates} ${DateUtils.getMonthYear(monthStr)} ${time} GMT-0000`
+                    let date = new Date(dateStr).toISOString()
+                    dates.push(date)
+                }
+            }
+        } else {
+            let currentDayDateStr = new Date().toISOString().split('T')[0]
+            for (let time of timeTable) {
+                let dateStr = `${currentDayDateStr} ${time} GMT-0000`
+                let date = new Date(dateStr).toISOString()
+                dates.push(date)
+            }
         }
         return dates
     }
