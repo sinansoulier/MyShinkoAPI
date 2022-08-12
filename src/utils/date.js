@@ -26,9 +26,8 @@ class DateUtils {
         if (dayDates.length > 0) {
             for (let i = 0; i < dayDates.length; i++) {
                 for (let time of timeTable[i]) {
-                    const splitMonthStr = dayDates.split(' ')
-                    const monthStr = splitMonthStr[splitMonthStr.length - 1]
-                    let dateStr = `${dayDates} ${DateUtils.getMonthYear(monthStr)} ${time} GMT-0000`
+                    let monthStr = dayDates[i].split(' ').slice(1).join(' ')
+                    let dateStr = `${monthStr} ${DateUtils.getMonthYear(monthStr)} ${time} GMT-0000`
                     let date = new Date(dateStr).toISOString()
                     dates.push(date)
                 }
