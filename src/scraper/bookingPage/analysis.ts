@@ -10,13 +10,22 @@ import { DateUtils } from "../../utils/date.js";
 
 // - Functions
 
-async function getNewBrowserPage(browser, bookingPath) {
+/**
+ * Generate new browser page
+ * @param browser
+ * @param bookingPath
+ */
+async function getNewBrowserPage(browser: puppeteer.Browser, bookingPath: string): Promise<puppeteer.Page> {
     const page = await browser.newPage()
     await page.goto(AppConstants.Shinko.buildPath(bookingPath), {waitUntil: 'networkidle0'})
     return page
 }
 
-async function extractBookingTimeTables(page) {
+/**
+ * Extract current page timetable
+ * @param page
+ */
+async function extractBookingTimeTables(page: puppeteer.Page): Promise<string[]> {
     let pageContent = await page.content()
     let $ = cheerio.load(pageContent)
 
@@ -28,7 +37,15 @@ async function extractBookingTimeTables(page) {
     return hourDates
 }
 
-async function extractBookingTimeTablesFromButtons(numberDayButtons, browser, bookingPath) {
+/**
+ * Extract all timetables from booking page
+ * @param numberDayButtons
+ * @param browser
+ * @param bookingPath
+ */
+async function extractBookingTimeTablesFromButtons(numberDayButtons: number,
+                                                   browser: puppeteer.Browser,
+                                                   bookingPath: string): Promise<string[][]> {
     let hourDates = []
     let promises = []
     for (let i = 0; i < numberDayButtons; i++) {
@@ -48,8 +65,9 @@ async function extractBookingTimeTablesFromButtons(numberDayButtons, browser, bo
 
 /**
  * Extract booking page availability information (as dates)
+ * @returns {Promise<string[]>} - Booking page availability information (as dates)
  */
-async function extractBookingAvailabilities() {
+async function extractBookingAvailabilities(): Promise<string[]> {
     let bookingPath = await fetchBookingButtonHref()
     if (bookingPath === null) {
         throw 'Could not fetch booking page body'
@@ -59,8 +77,8 @@ async function extractBookingAvailabilities() {
     let pageContent = await page.content()
 
     // Booking availability
-    let dayDates = []
-    let hourDates = []
+    let dayDates: string[] = []
+    let hourDates: string[][] = []
 
     let $ = cheerio.load(pageContent)
     let dayButtonList = $('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
@@ -71,7 +89,8 @@ async function extractBookingAvailabilities() {
 
         hourDates = await extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
     } else {
-        hourDates = await extractBookingTimeTables(page)
+        let todayHourDates: string[] = await extractBookingTimeTables(page)
+        hourDates.push(todayHourDates)
     }
     await browser.close()
 

@@ -8,7 +8,7 @@ const { JSDOM } = jsdom;
  * Generate JSDOM document
  * @param {string} body - Page body as a string of characters
  */
-function generateDocument(body) {
+function generateDocument(body: string): Document {
     const dom = new JSDOM(body)
     return dom.window.document
 }
