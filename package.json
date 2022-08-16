@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc --build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "node build/src/index.js",
+    "testFetcher": "node build/tests/scraper/fetcherTest.js",
+    "testScraper": "node build/tests/scraper/scraperTest.js"
   },
   "keywords": [],
   "author": "",

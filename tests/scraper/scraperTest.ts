@@ -5,22 +5,20 @@ import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/anal
 printBaseURL()
 
 /**
- * Check that scraper works as intended
+ * Check that scraper does not throw any errors
  */
-async function checkScrapingWorker() {
+async function checkScrapingWorker(): Promise<void> {
     try {
-        let results = await extractBookingAvailabilities()
-        console.log(results)
+        let _ = await extractBookingAvailabilities()
     } catch {
         throw "Error: Scraper did not run properly"
     }
-    return true
 }
 
 /**
  * Test launcher
  */
-async function launchTests() {
+async function launchTests(): Promise<void> {
     await checkScrapingWorker()
     console.log("Scraper: OK")
 }

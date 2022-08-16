@@ -17,15 +17,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: |
-          npm install
-          npm ci
+        run: npm ci
 
       - name: Compile typescript
         run: npm run build
 
-      - name: Run Page Scraper
-        run: node build/tests/scraper/scraperTest.js
+      - name: Run Page Scraper Tests
+        run: npm run testScraper
         env:
           SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          SHINKO_BOOKING_BUTTON_CLASS: "sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"
