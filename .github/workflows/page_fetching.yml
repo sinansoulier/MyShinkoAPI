@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Run Page Scraper
-        run: node build/tests/scraper/scraper.js
+        run: node build/tests/scraper/scraperTest.js
         env:
           SHINKO_BASE_URL: "https://www.shinkoparis.fr"
           SHINKO_BOOKING_BUTTON_CLASS: "sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"
