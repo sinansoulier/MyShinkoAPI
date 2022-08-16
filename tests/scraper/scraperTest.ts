@@ -1,4 +1,8 @@
+import { printBaseURL } from "../../src/scraper/mainPage/fetcher.js";
 import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/analysis.js";
+
+// Test that base URL can be printed
+printBaseURL()
 
 /**
  * Check that scraper works as intended

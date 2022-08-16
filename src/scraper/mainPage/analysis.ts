@@ -5,8 +5,9 @@ import { generateDocument } from "../../utils/functions.js";
 
 /**
  * Get booking button information
+ * @returns {Promise<string>} - Booking button information
  */
-async function fetchBookingButtonHref() {
+async function fetchBookingButtonHref(): Promise<string> {
     let responseText = await fetchBody()
     let document = generateDocument(responseText)
 
