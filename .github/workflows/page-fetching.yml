@@ -1,4 +1,4 @@
-name: Page Fetching
+name: Page Fetching (main page)
 
 on: [ push ]
 
