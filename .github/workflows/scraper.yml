@@ -1,4 +1,4 @@
-name: Page Fetching
+name: Scraping
 
 on: [ push ]
 
@@ -17,7 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install
+          npm ci
 
       - name: Compile typescript
         run: npm run build
