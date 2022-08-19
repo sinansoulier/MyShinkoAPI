@@ -41,7 +41,7 @@ class AppConstants {
         /**
          * Server port
          */
-        static port: number = Number(environment.SERVER_PORT)
+        static port: number = Number(environment.SERVER_PORT || '3000')
     }
 }
 
