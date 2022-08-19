@@ -9,3 +9,7 @@ package-lock.json
 
 # JS compilation cache
 build/
+
+# Certification files
+myshinkomiddleware.sinan.crt
+myshinkomiddleware.sinan.key

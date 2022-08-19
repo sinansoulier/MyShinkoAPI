@@ -1,8 +1,8 @@
 import { printBaseURL } from "./scraper/mainPage/fetcher.js";
-import { extractBookingAvailabilities } from "./scraper/bookingPage/analysis.js";
+import { Server } from "./server/middlewareServer.js";
 
 // Test function call
 printBaseURL()
 
-let dates: string[] = await extractBookingAvailabilities()
-console.log(dates)
+let server = new Server()
+server.myShinkoMiddleware()

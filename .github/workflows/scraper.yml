@@ -28,3 +28,6 @@ jobs:
         run: npm run testScraper
         env:
           SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+          CACHE_DURATION: "300"
+          SERVER_PORT: "8080"

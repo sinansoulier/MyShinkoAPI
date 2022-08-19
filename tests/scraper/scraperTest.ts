@@ -1,5 +1,5 @@
 import { printBaseURL } from "../../src/scraper/mainPage/fetcher.js";
-import { extractBookingAvailabilities } from "../../src/scraper/bookingPage/analysis.js";
+import { Scraper } from "../../src/scraper/bookingPage/analysis.js";
 
 // Test that base URL can be printed
 printBaseURL()
@@ -9,7 +9,7 @@ printBaseURL()
  */
 async function checkScrapingWorker(): Promise<void> {
     try {
-        let _ = await extractBookingAvailabilities()
+        let _ = await Scraper.extractBookingAvailabilities()
     } catch {
         throw "Error: Scraper did not run properly"
     }

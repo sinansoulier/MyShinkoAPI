@@ -24,6 +24,7 @@
     "jsdom": "19.0.0",
     "node-fetch": "^3.2.10",
     "puppeteer": "^16.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "node-cache": "^5.1.2"
   }
 }

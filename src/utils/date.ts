@@ -63,7 +63,8 @@ class DateUtils {
             }
         } else {
             let currentDayDateStr = new Date().toISOString().split('T')[0]
-            for (let time of timeTable) {
+             let flatTimeTable = timeTable.flatMap(time => time)
+            for (let time of flatTimeTable) {
                 let dateStr: string = `${currentDayDateStr} ${time} GMT-0000`
                 let date: string = new Date(dateStr).toISOString()
                 dates.push(date)
