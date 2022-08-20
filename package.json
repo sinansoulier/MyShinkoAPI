@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
     "run": "node build/src/index.js",
-    "testFetcher": "node build/tests/scraper/fetcherTest.js",
-    "testScraper": "node build/tests/scraper/scraperTest.js",
+    "testFetcher": "node build/test/scraper/fetcherTest.js",
+    "testScraper": "node build/test/scraper/scraperTest.js",
     "genereate_certificates": "./generate_ca_and_certificate.sh",
     "test": "mocha 'build/test/**/*.js' --recursive",
     "testLocally": "./set_environment_variables.sh && npm test"
