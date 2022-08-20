@@ -6,9 +6,10 @@ import { Request, Response } from "express";
 // Files
 import { AppConstants } from "../../utils/appConstants.js";
 import { Scraper } from "../../scraper/bookingPage/analysis.js";
+import { FunctionUtils } from "../../utils/functions.js";
 
 // Constants
-const cache = AppConstants.Cache.generateCache()
+const cache = FunctionUtils.Cache.generateCache()
 
 /**
  * Basic bookings availabilities route

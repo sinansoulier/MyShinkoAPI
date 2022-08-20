@@ -5,8 +5,8 @@ import puppeteer from 'puppeteer';
 
 // Project functions
 import { fetchBookingButtonHref } from "../mainPage/analysis.js";
-import { AppConstants } from "../../utils/appConstants.js";
 import { DateUtils } from "../../utils/date.js";
+import { FunctionUtils } from "../../utils/functions.js";
 
 
 // Scraper Object
@@ -22,7 +22,7 @@ class Scraper {
      */
     static async getNewBrowserPage(browser: puppeteer.Browser, bookingPath: string): Promise<puppeteer.Page> {
         const page = await browser.newPage()
-        await page.goto(AppConstants.Shinko.buildPath(bookingPath), {waitUntil: 'networkidle0'})
+        await page.goto(FunctionUtils.Scraper.buildPath(bookingPath), {waitUntil: 'networkidle0'})
         return page
     }
 

@@ -1,7 +1,7 @@
 // - Imports
 // Project functions
 import { fetchBody } from "./fetcher.js";
-import { generateDocument } from "../../utils/functions.js";
+import { FunctionUtils } from "../../utils/functions.js";
 
 /**
  * Get booking button information
@@ -9,7 +9,7 @@ import { generateDocument } from "../../utils/functions.js";
  */
 async function fetchBookingButtonHref(): Promise<string> {
     let responseText = await fetchBody()
-    let document = generateDocument(responseText)
+    let document = FunctionUtils.DOM.generateDocument(responseText)
 
     let buttonWrapperList = document.getElementsByClassName('buttons-wrap-header')
     let buttonWrapper = [...buttonWrapperList].flatMap(button => button.querySelector('a').href);
