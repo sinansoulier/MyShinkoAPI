@@ -22,14 +22,14 @@ class Server {
         }
     }
 
-    runMyShinkoMiddleware(): void {
+    shinkoMiddleware(): https.Server {
         this.app.get(AppConstants.Server.Routes.root, sayHello);
         this.app.get(AppConstants.Server.Routes.basicBookingsAvailabilities, basicBookingsAvailabilities);
 
         const certification = Server.getOptions()
         let server: https.Server = https.createServer(certification, this.app)
 
-        server.listen(AppConstants.Server.port, () => {
+        return server.listen(AppConstants.Server.port, () => {
             console.log(`Server running at https://localhost:${AppConstants.Server.port}/`)
         })
     }

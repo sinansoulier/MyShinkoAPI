@@ -5,4 +5,4 @@ import { Server } from "./server/middlewareServer.js";
 printBaseURL()
 
 let server = new Server()
-server.runMyShinkoMiddleware()
+server.shinkoMiddleware()
