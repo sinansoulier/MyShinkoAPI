@@ -42,6 +42,18 @@ class AppConstants {
          * Server port
          */
         static port: number = Number(environment.SERVER_PORT || '3000')
+
+        static Routes = class {
+            /**
+             * Root route
+             */
+            static root: string = '/'
+
+            /**
+             * Basic bookings availabilities route
+             */
+            static basicBookingsAvailabilities: string = '/basicBookingsAvailabilities'
+        }
     }
 }
 
