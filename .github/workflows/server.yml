@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
-        os: [ ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
     steps:
       - uses: actions/checkout@v3
 
@@ -24,7 +24,7 @@ jobs:
       - name: Compile typescript
         run: npm run build
 
-      - name: Genereate SSL certificates
+      - name: Generate SSL certificates
         run: npm run generate_certificates
 
       - name: Run Server tests
