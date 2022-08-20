@@ -3,7 +3,7 @@ name: Server
 on: [ push ]
 
 jobs:
-  scraper:
+  server:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
