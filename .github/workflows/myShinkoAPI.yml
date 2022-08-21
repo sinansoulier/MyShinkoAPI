@@ -7,49 +7,49 @@ on:
       - main
 
 jobs:
-  all-tasks:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
-        os: [ ubuntu-latest ]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Uses Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Compile typescript
-        run: npm run build
-
-      - name: Run Page Fetcher Tests
-        run: npm run testFetcher
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-
-      - name: Run Scraper Tests
-        run: npm run testScraper
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-
-      - name: Run Server tests
-        run: npm test
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
+#  all-tasks:
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      matrix:
+#        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
+#        os: [ ubuntu-latest ]
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Uses Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Compile typescript
+#        run: npm run build
+#
+#      - name: Run Page Fetcher Tests
+#        run: npm run testFetcher
+#        env:
+#          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+#          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+#          CACHE_DURATION: "300"
+#          SERVER_PORT: "3000"
+#
+#      - name: Run Scraper Tests
+#        run: npm run testScraper
+#        env:
+#          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+#          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+#          CACHE_DURATION: "300"
+#          SERVER_PORT: "3000"
+#
+#      - name: Run Server tests
+#        run: npm test
+#        env:
+#          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+#          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+#          CACHE_DURATION: "300"
+#          SERVER_PORT: "3000"
 
   fetch_dependencies:
     runs-on: ${{ matrix.os }}
@@ -117,7 +117,7 @@ jobs:
         os: [ ubuntu-latest ]
     needs: [ fetch_dependencies, build_typescript ]
     steps:
-      - uses: actions/checkout@3
+      - uses: actions/checkout@v3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
