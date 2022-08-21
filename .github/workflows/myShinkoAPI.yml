@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  all-tasks:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -27,29 +27,6 @@ jobs:
       - name: Compile typescript
         run: npm run build
 
-  page-fetcher:
-    runs-on: ${{ matrix.os }}
-    needs: [ build ]
-    strategy:
-      matrix:
-        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
-        os: [ ubuntu-latest ]
-    steps:
-      - uses: actions/checkout@v3
-
-#      - name: Use Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#      - name: Install dependencies
-#        run: npm install
-#
-#      - name: Compile typescript
-#        run: npm run build
-
-#      - name: Generate SSL certificates
-#        run: npm run generate_certificates
-
       - name: Run Page Fetcher Tests
         run: npm run testFetcher
         env:
@@ -58,18 +35,113 @@ jobs:
           CACHE_DURATION: "300"
           SERVER_PORT: "3000"
 
-#      - name: Run Scraper Tests
-#        run: npm run testScraper
-#        env:
-#          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-#          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-#          CACHE_DURATION: "300"
-#          SERVER_PORT: "3000"
-#
-#      - name: Run Server tests
-#        run: npm test
-#        env:
-#          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-#          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-#          CACHE_DURATION: "300"
-#          SERVER_PORT: "3000"
+      - name: Run Scraper Tests
+        run: npm run testScraper
+        env:
+          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+          CACHE_DURATION: "300"
+          SERVER_PORT: "3000"
+
+      - name: Run Server tests
+        run: npm test
+        env:
+          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+          CACHE_DURATION: "300"
+          SERVER_PORT: "3000"
+
+  fetch_dependencies:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
+        os: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node-modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+  build_typescript:
+    if: ${{ success() }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
+        os: [ ubuntu-latest ]
+    needs: fetch_dependencies
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache built typescript
+        id: build-typescript
+        uses: actions/cache@v3
+        with:
+          path: build
+          key: typescript-${{ tsconfig.json }}
+
+      - name: Build typescript
+        run: npm run build
+
+  test_page_fetcher:
+    if: ${{ success() }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [ 14.x, 15.x, 16.x, 17.x, 18.x ]
+        os: [ ubuntu-latest ]
+    needs: [ fetch_dependencies, build_typescript ]
+    steps:
+      - uses: actions/checkout@3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Restore typescript build
+        id: build-typescript
+        uses: actions/cache@v3
+        with:
+          path: build
+          key: typescript-${{ tsconfig.json }}
+
+      - name: Run Page Fetcher Tests
+        run: npm run testFetcher
+        env:
+          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
+          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
+          CACHE_DURATION: "300"
+          SERVER_PORT: "3000"
