@@ -10,7 +10,7 @@
     "testFetcher": "node build/test/scraper/fetcherTest.js",
     "testScraper": "node build/test/scraper/scraperTest.js",
     "generate_certificates": "./generate_ca_and_certificate.sh",
-    "test": "mocha 'build/test/**/*.js' --recursive",
+    "test": "mocha 'build/test/server/**/*.js' --recursive",
     "testLocally": "./set_environment_variables.sh && npm test"
   },
   "keywords": [],
