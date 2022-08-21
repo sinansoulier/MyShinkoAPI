@@ -170,6 +170,9 @@ jobs:
           path: build
           key: typescript-${{ hashFiles('tsconfig.json') }}
 
+      - name: Genereate SSL certificates
+        run: npm run generate_certificates
+
       - name: Run Server Tests
         run: npm test
         env:
