@@ -103,7 +103,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: build
-          key: typescript-${{ tsconfig.json }}
+          key: typescript-${{ hashFiles('tsconfig.json') }}
 
       - name: Build typescript
         run: npm run build
@@ -136,7 +136,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: build
-          key: typescript-${{ tsconfig.json }}
+          key: typescript-${{ hashFiles('tsconfig.json') }}
 
       - name: Run Page Fetcher Tests
         run: npm run testFetcher
