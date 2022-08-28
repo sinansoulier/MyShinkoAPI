@@ -1,5 +1,5 @@
 import { printBaseURL } from "../../src/scraper/mainPage/fetcher.js";
-import { Scraper } from "../../src/scraper/bookingPage/analysis.js";
+import { Scraper } from "../../src/scraper/bookingPage/extractBookings.js";
 
 // Test that base URL can be printed
 printBaseURL()
