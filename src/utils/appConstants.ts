@@ -8,15 +8,15 @@ class AppConstants {
          * Shinko base URL
          */
         static baseURL: string = environment.SHINKO_BASE_URL
-
-
     }
 
     static Cache = class {
         /**
          * Booking dates cache key
          */
-        static bookingDatesKey: string = environment.BOOKING_DATES_CACHE_KEY
+        static bookingDatesKey: string = "bookingDatesKey"
+
+        static bookingDaysKey: string = "bookingDaysKey"
     }
 
     static Server = class {
@@ -24,6 +24,11 @@ class AppConstants {
          * Server port
          */
         static port: number = Number(environment.SERVER_PORT || '3000')
+
+        /**
+         * Certification base path
+         */
+        static certifcationBasePath: string = environment.CERTIFICATION_PATH || 'certs'
 
         static Routes = class {
             /**
@@ -35,6 +40,11 @@ class AppConstants {
              * Basic bookings availabilities route
              */
             static basicBookingsAvailabilities: string = '/basicBookingsAvailabilities'
+
+            /**
+             * Basic days bookings availabilities route
+             */
+            static basicDaysBookingsAvailabilities: string = '/basicDaysBookingsAvailabilities'
         }
     }
 }

@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
-    "start": "eval $(./set_environment_variables.sh) && node build/src/index.js",
+    "start": "npm run build && eval $(./set_environment_variables.sh) && node build/src/index.js",
     "generate_certificates": "./generate_ca_and_certificate.sh",
-    "test": "eval $(./set_environment_variables.sh) && mocha 'build/test/server/**/*.js' --recursive"
+    "test": "npm run build && eval $(./set_environment_variables.sh) && mocha 'build/test/server/**/*.js' --recursive"
   },
   "keywords": [],
   "author": "",
