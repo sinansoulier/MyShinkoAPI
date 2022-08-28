@@ -64,82 +64,6 @@ jobs:
       - name: Build typescript
         run: npm run build
 
-  test_page_fetcher:
-    if: ${{ success() }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [ 16.x, 17.x, 18.x ]
-        os: [ ubuntu-latest ]
-    needs: [ fetch_dependencies, build_typescript ]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Restore node_modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-
-      - name: Restore typescript build
-        id: build-typescript
-        uses: actions/cache@v3
-        with:
-          path: build
-          key: typescript-${{ hashFiles('tsconfig.json') }}
-
-      - name: Run Page Fetcher Tests
-        run: npm run testFetcher
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-
-  test_scraper:
-    if: ${{ success() }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [ 16.x, 17.x, 18.x ]
-        os: [ ubuntu-latest ]
-    needs: [ fetch_dependencies, build_typescript ]
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Restore node_modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-
-      - name: Restore typescript build
-        id: build-typescript
-        uses: actions/cache@v3
-        with:
-          path: build
-          key: typescript-${{ hashFiles('tsconfig.json') }}
-
-      - name: Run Page Fetcher Tests
-        run: npm run testScraper
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-
   test_server:
     if: ${{ success() }}
     runs-on: ${{ matrix.os }}
@@ -170,7 +94,7 @@ jobs:
           path: build
           key: typescript-${{ hashFiles('tsconfig.json') }}
 
-      - name: Genereate SSL certificates
+      - name: Generate SSL certificates
         run: npm run generate_certificates
 
       - name: Run Server Tests
@@ -180,3 +104,4 @@ jobs:
           BOOKING_DATES_CACHE_KEY: "bookingDatesKey"
           CACHE_DURATION: "300"
           SERVER_PORT: "3000"
+          CERTIFICATION_PATH: "certs"

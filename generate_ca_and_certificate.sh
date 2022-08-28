@@ -5,9 +5,12 @@ state="Île-de-France"
 city="Cachan"
 organization="SinanCorp"
 mail="sinan.soulier@gmail.com"
-ou="Personal"
-cn_ca="Personal"
-cn_certif="myshinkomiddleware.sinan"
+ou="Sinan"
+cn_ca="Sinan"
+cn_certif="myshinkomiddleware.sinan.org"
+
+mkdir certs;
+cd certs;
 
 # Generate key
 openssl genrsa -out ca.key 4096
@@ -37,6 +40,8 @@ subjectAltName = @alt_names
 DNS.1 = localhost
 DNS.2 = localhost.com
 DNS.3 = www.localhost.com
+DNS.4 = myshinkomiddleware.sinan.org
+DNS.5 = *.myshinkomiddleware.sinan.org
 EOF
 
 openssl x509 -req -in myshinkomiddleware.sinan.csr -CA ca.crt -CAkey ca.key \

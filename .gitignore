@@ -11,5 +11,4 @@ package-lock.json
 build/
 
 # Certification files
-myshinkomiddleware.sinan.crt
-myshinkomiddleware.sinan.key
+certs/
