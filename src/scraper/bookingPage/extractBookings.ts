@@ -101,6 +101,33 @@ class Scraper {
 
         return DateUtils.generateDatesFromTimeTable(dayDates, hourDates)
     }
+
+    static async extractDaysBookings(): Promise<string[]> {
+        let bookingPath = await fetchBookingButtonHref()
+        if (bookingPath === null) {
+            throw 'Could not fetch booking page body'
+        }
+        const browser = await puppeteer.launch({headless: true});
+        let page = await Scraper.getNewBrowserPage(browser, bookingPath)
+        let pageContent = await page.content()
+
+        // Booking availability
+        let dayDates: string[] = []
+        let hourDates: string[][] = []
+
+        let $ = cheerio.load(pageContent)
+        let dayButtonList = $('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
+        if (dayButtonList.length > 0) {
+            dayButtonList.each((index, element) => {
+                dayDates.push($(element).text())
+            })
+
+            // hourDates = await Scraper.extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
+        }
+        await browser.close()
+
+        return dayDates
+    }
 }
 export {
     Scraper,

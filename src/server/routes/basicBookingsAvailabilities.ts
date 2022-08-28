@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 
 // Files
 import { AppConstants } from "../../utils/appConstants.js";
-import { Scraper } from "../../scraper/bookingPage/analysis.js";
+import { Scraper } from "../../scraper/bookingPage/extractBookings.js";
 import { FunctionUtils } from "../../utils/functions.js";
 
 // Constants
@@ -39,7 +39,7 @@ async function basicBookingsAvailabilities(req: Request, res: Response) {
             else
                 res.status(err.response.status).json({error: err.message})
         } else {
-            res.status(500).json({error: "Unknown error"})
+            res.status(500).json({error: "Unknown error", message: err.message})
         }
     }
 }

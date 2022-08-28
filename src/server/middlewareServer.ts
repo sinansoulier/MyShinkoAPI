@@ -10,6 +10,7 @@ import { AppConstants } from "../utils/appConstants.js";
 // Server routes import
 import { sayHello } from "./routes/root.js";
 import { basicBookingsAvailabilities } from "./routes/basicBookingsAvailabilities.js";
+import {Scraper} from "../scraper/bookingPage/extractBookings.js";
 
 // - Server
 class Server {
@@ -25,11 +26,15 @@ class Server {
     shinkoMiddleware(): https.Server {
         this.app.get(AppConstants.Server.Routes.root, sayHello);
         this.app.get(AppConstants.Server.Routes.basicBookingsAvailabilities, basicBookingsAvailabilities);
+        this.app.get('/daysBookingsAvailabilities', async (req, res) => {
+            let bookings: string[] = await Scraper.extractDaysBookings()
+            res.json({dates: bookings})
+        });
 
         const certification = Server.getOptions()
         let server: https.Server = https.createServer(certification, this.app)
 
-        return server.listen(AppConstants.Server.port, () => {
+        return server.listen(AppConstants.Server.port, '0.0.0.0', () => {
             console.log(`Server running at https://localhost:${AppConstants.Server.port}/`)
         })
     }
