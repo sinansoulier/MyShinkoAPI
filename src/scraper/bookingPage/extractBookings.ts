@@ -101,7 +101,10 @@ class Scraper {
 
         return DateUtils.generateDatesFromTimeTable(dayDates, hourDates)
     }
-
+    /**
+     * Extract booking page days availability information (as ISO dates)
+     * @returns {Promise<string[]>} - Booking page availability information (as dates)
+     */
     static async extractDaysBookings(): Promise<string[]> {
         let bookingPath = await fetchBookingButtonHref()
         if (bookingPath === null) {
@@ -113,7 +116,6 @@ class Scraper {
 
         // Booking availability
         let dayDates: string[] = []
-        let hourDates: string[][] = []
 
         let $ = cheerio.load(pageContent)
         let dayButtonList = $('label[class="sc-bdfBQB LabelBox___StyledBox-sc-1jd55lr-0 glyJBl mlirO"]')
@@ -121,8 +123,6 @@ class Scraper {
             dayButtonList.each((index, element) => {
                 dayDates.push($(element).text())
             })
-
-            // hourDates = await Scraper.extractBookingTimeTablesFromButtons(dayButtonList.length, browser, bookingPath)
         }
         await browser.close()
 

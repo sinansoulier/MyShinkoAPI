@@ -10,31 +10,30 @@ import { AppConstants } from "../utils/appConstants.js";
 // Server routes import
 import { sayHello } from "./routes/root.js";
 import { basicBookingsAvailabilities } from "./routes/basicBookingsAvailabilities.js";
-import {Scraper} from "../scraper/bookingPage/extractBookings.js";
+import { basicDaysBookingsAvailabilities } from "./routes/basicDaysBookingsAvailabilities.js";
 
 // - Server
 class Server {
     app = express()
 
     static getOptions() {
+        const basePath = AppConstants.Server.certifcationBasePath
         return {
-            key: fs.readFileSync('myshinkomiddleware.sinan.key'),
-            cert: fs.readFileSync('myshinkomiddleware.sinan.crt')
+            key: fs.readFileSync(basePath + '/myshinkomiddleware.sinan.key', 'utf8'),
+            cert: fs.readFileSync(basePath + '/myshinkomiddleware.sinan.crt', 'utf8')
         }
     }
 
     shinkoMiddleware(): https.Server {
-        this.app.get(AppConstants.Server.Routes.root, sayHello);
-        this.app.get(AppConstants.Server.Routes.basicBookingsAvailabilities, basicBookingsAvailabilities);
-        this.app.get('/daysBookingsAvailabilities', async (req, res) => {
-            let bookings: string[] = await Scraper.extractDaysBookings()
-            res.json({dates: bookings})
-        });
+        const routes = AppConstants.Server.Routes
+        this.app.get(routes.root, sayHello);
+        this.app.get(routes.basicBookingsAvailabilities, basicBookingsAvailabilities);
+        this.app.get(routes.basicDaysBookingsAvailabilities, basicDaysBookingsAvailabilities);
 
         const certification = Server.getOptions()
         let server: https.Server = https.createServer(certification, this.app)
 
-        return server.listen(AppConstants.Server.port, '0.0.0.0', () => {
+        return server.listen(AppConstants.Server.port, () => {
             console.log(`Server running at https://localhost:${AppConstants.Server.port}/`)
         })
     }

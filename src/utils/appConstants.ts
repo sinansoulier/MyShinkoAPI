@@ -1,5 +1,3 @@
-import NodeCache from "node-cache";
-
 const environment = process.env
 
 class AppConstants {
