@@ -9,7 +9,6 @@ describe(`GET ${AppConstants.Server.Routes.getAllAvailabilities}`, () => {
     it('Should return all available bookings from Shinko', (done) => {
         request(server)
             .get(AppConstants.Server.Routes.getAllAvailabilities)
-            // .trustLocalhost()
             .expect(200)
             .end(done)
     })
