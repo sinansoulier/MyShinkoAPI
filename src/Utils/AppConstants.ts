@@ -56,6 +56,16 @@ class AppConstants {
             static root: string = '/'
 
             /**
+             * Get all availabilities route
+             */
+            static getAllAvailabilities: string = '/getAllAvailabilities'
+
+            /**
+             * Get availabilities between dates route
+             */
+            static getAvailabilitiesBetweenDates: string = '/getAvailabilitiesBetweenDates'
+
+            /**
              * Basic bookings availabilities route
              */
             static basicBookingsAvailabilities: string = '/basicBookingsAvailabilities'
