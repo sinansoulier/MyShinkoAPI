@@ -1,8 +1,45 @@
+// - Imports
+
+// Files
 import { AvailabilitiesData } from "../DataAccess/AvailabilitiesData.js";
+import { SummarizedAvailabilitiesResponse } from "../Models/SummarizedAvailabilitiesResponse.js";
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
 import { DateUtils } from "../Utils/DateUtils.js";
 
+
 class AvailabilitiesBusiness {
+    /**
+     * Get all summarized availabilities without any filter
+     * @returns {Promise<AvailabilitiesResponse[]>} - Promise object represents array of summarized availabilities
+     */
+    static async getAllSummarizedAvailabilities(): Promise<SummarizedAvailabilitiesResponse[]> {
+        // FIXME: Implement function
+        let beginDate: Date = DateUtils.getCurrentDayDate()
+        let endDate: Date = DateUtils.addDaysToDate(beginDate, 40)
+
+        let beginDates: string[] = []
+        let endDates: string[] = []
+        const numberOfRequests: number = 3
+
+        for (let i = 0; i < numberOfRequests; i++) {
+            beginDates.push(DateUtils.getDateString(beginDate))
+            endDates.push(DateUtils.getDateString(endDate))
+            beginDate = endDate
+            endDate = DateUtils.addDaysToDate(beginDate, 40)
+        }
+
+        let promises: Promise<SummarizedAvailabilitiesResponse[]>[] = []
+        for (let i = 0; i < numberOfRequests; i++) {
+            promises.push(AvailabilitiesData.getSummarizedAvailabilities(beginDates[i], endDates[i]))
+        }
+
+        return (await Promise.all(promises))
+            .flatMap(elt => elt)
+            .filter(elt => elt.shifts
+                .some(shiftSlot => shiftSlot.possible_guests.length > 0)
+            )
+    }
+
     /**
      * Get all availabilities without any filter
      * @returns {Promise<AvailabilitiesResponse[]>} - Promise object represents array of availabilities
