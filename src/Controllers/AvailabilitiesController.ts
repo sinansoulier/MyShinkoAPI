@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 
 // Files
 import { AvailabilitiesBusiness } from "../Business/AvailabilitiesBusiness.js";
+import {AvailabilitiesResponse} from "../Models/AvailabilitiesResponse.js";
 
 class AvailabilitiesController {
     /**
@@ -14,7 +15,7 @@ class AvailabilitiesController {
      */
     static async getAllAvailabilities(req: Request, res: Response) {
         try {
-            let availabilities: AvailabilitiesBusiness[] = await AvailabilitiesBusiness.getAllAvailabilities()
+            let availabilities: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllAvailabilities()
             // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
@@ -38,7 +39,7 @@ class AvailabilitiesController {
         try {
             let startDate: string = req.body.startDate
             let endDate: string = req.body.endDate
-            let availabilities: AvailabilitiesBusiness[] = await AvailabilitiesBusiness.getAvailabilitiesByDates(startDate, endDate)
+            let availabilities: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAvailabilitiesByDates(startDate, endDate)
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
