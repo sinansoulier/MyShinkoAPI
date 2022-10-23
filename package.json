@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
-    "start": "npm run build && node build/src/App.js",
-    "test": "npm run build && mocha 'build/test/server/**/*.js' --recursive"
+    "start": "node build/src/App.js",
+    "test": "mocha 'build/test/server/**/*.js' --recursive"
   },
   "keywords": [],
   "author": "",
@@ -20,15 +20,10 @@
     "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "cheerio": "1.0.0-rc.10",
     "express": "^4.18.1",
     "form-data": "4.0.0",
-    "jsdom": "19.0.0",
     "node-fetch": "^3.2.10",
-    "puppeteer": "^16.0.0",
     "ts-node": "^10.9.1",
-    "node-cache": "^5.1.2",
-    "chai": "^4.3.6",
     "mocha": "^10.0.0",
     "supertest": "^6.2.4"
   }
