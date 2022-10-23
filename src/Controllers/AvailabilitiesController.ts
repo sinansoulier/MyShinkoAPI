@@ -36,8 +36,8 @@ class AvailabilitiesController {
      */
     static async getAvailabilitiesBetweenDates(req: Request, res: Response) {
         try {
-            let startDate: string = req.query.startDate as string
-            let endDate: string = req.query.endDate as string
+            let startDate: string = req.body.startDate
+            let endDate: string = req.body.endDate
             let availabilities: AvailabilitiesBusiness[] = await AvailabilitiesBusiness.getAvailabilitiesByDates(startDate, endDate)
             res.json(availabilities)
         } catch (err) {
