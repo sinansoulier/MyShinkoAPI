@@ -15,6 +15,8 @@ class ServerBuilder {
         const routes = AppConstants.Server.Routes
 
         this.app.use(express.json())
+
+        this.app.get(routes.getAllSummarizedAvailabilities, AvailabilitiesController.getAllSummarizedAvailabilities)
         this.app.get(routes.getAllAvailabilities, AvailabilitiesController.getAllAvailabilities);
         this.app.get(routes.getAvailabilitiesBetweenDates, AvailabilitiesController.getAvailabilitiesBetweenDates);
 
