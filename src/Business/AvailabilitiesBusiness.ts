@@ -74,6 +74,22 @@ class AvailabilitiesBusiness {
     }
 
     /**
+     * Get summarized availabilities by begin and end date
+     * @param beginDate{string} - Begin date
+     * @param endDate{string} - End date
+     * @returns {Promise<SummarizedAvailabilitiesResponse[]>} - Promise object represents array of summarized availabilities
+     */
+    static async getSummarizedAvailabilitiesByDates(beginDate: string, endDate: string): Promise<SummarizedAvailabilitiesResponse[]> {
+        // FIXME: Handle response errors
+        let responses: SummarizedAvailabilitiesResponse[] =  await AvailabilitiesData.getSummarizedAvailabilities(beginDate, endDate)
+        responses = responses
+            .filter(elt => elt.shifts
+                .some(shiftSlot => shiftSlot.possible_guests.length > 0)
+            )
+        return responses
+    }
+
+    /**
      * Get availabilities by begin and end date
      * @param beginDate{string} - Begin date
      * @param endDate{string} - End date
