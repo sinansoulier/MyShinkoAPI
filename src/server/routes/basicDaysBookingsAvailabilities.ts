@@ -4,7 +4,7 @@
 import { Request, Response } from "express";
 
 // Files
-import { AppConstants } from "../../utils/appConstants.js";
+import { AppConstants } from "../../utils/AppConstants";
 import { Scraper } from "../../scraper/bookingPage/extractBookings.js";
 import { FunctionUtils } from "../../utils/functions.js";
 

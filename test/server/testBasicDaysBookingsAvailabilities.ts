@@ -1,5 +1,5 @@
 import { Server } from '../../src/server/middlewareServer.js';
-import { AppConstants } from "../../src/utils/appConstants.js";
+import { AppConstants } from "../../src/utils/AppConstants";
 import request from 'supertest';
 
 let server = new Server().shinkoMiddleware()

@@ -6,6 +6,27 @@ class AppConstants {
          * Shinko base URL
          */
         static baseURL: string = environment.SHINKO_BASE_URL
+
+        /**
+         * Booking ZenChef base URL
+         */
+        static bookingZenChefURL: string  = 'https://bookings-middleware.zenchef.com/'
+
+        static Path = class {
+            /**
+             * Shinko availabilities path
+             */
+            static availabilitiesPath = 'getAvailabilities'
+        }
+
+        private static shinkoID: Number = 356608
+
+        /**
+         * Shinko availabilities URL
+         */
+        static availabilitiesURL(beginDate: string, endDate: string): string {
+            return `${this.bookingZenChefURL}${this.Path.availabilitiesPath}?restaurantId=${this.shinkoID}&date_begin=${beginDate}&date_end=${endDate}`
+        }
     }
 
     static Cache = class {

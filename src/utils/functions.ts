@@ -8,7 +8,7 @@ import jsdom from 'jsdom';
 import NodeCache from "node-cache";
 
 // Files
-import { AppConstants } from "./appConstants.js";
+import { AppConstants } from "./AppConstants";
 
 // - Constants
 const { JSDOM } = jsdom;
