@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
-    "start": "npm run build && eval $(./set_environment_variables.sh) && node build/src/App.js",
-    "test": "npm run build && eval $(./set_environment_variables.sh) && mocha 'build/test/server/**/*.js' --recursive"
+    "start": "npm run build && node build/src/App.js",
+    "test": "npm run build && mocha 'build/test/server/**/*.js' --recursive"
   },
   "keywords": [],
   "author": "",

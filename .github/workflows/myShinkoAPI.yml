@@ -96,8 +96,3 @@ jobs:
 
       - name: Run Server Tests
         run: npm test
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-          CERTIFICATION_PATH: "certs"
