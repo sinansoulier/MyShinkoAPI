@@ -5,8 +5,8 @@ import puppeteer from 'puppeteer';
 
 // Project functions
 import { fetchBookingButtonHref } from "../mainPage/analysis.js";
-import { DateUtils } from "../../utils/date.js";
-import { FunctionUtils } from "../../utils/functions.js";
+import { DateUtils } from "../../Utils/DateUtils.js";
+import { FunctionUtils } from "../../Utils/FunctionUtils.js";
 
 
 // Scraper Object

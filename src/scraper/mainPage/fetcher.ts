@@ -3,7 +3,7 @@
 import fetch from 'node-fetch';
 
 // Project imports
-import {AppConstants} from '../../utils/AppConstants'
+import {AppConstants} from '../../Utils/AppConstants.js'
 
 // - Functions
 

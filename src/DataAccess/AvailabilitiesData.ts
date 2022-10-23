@@ -3,7 +3,7 @@
 import fetch from 'node-fetch';
 
 // Project imports
-import { AppConstants } from '../utils/AppConstants.js'
+import { AppConstants } from '../Utils/AppConstants.js'
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
 
 class AvailabilitiesData {

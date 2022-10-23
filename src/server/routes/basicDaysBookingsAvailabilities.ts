@@ -4,9 +4,9 @@
 import { Request, Response } from "express";
 
 // Files
-import { AppConstants } from "../../utils/AppConstants";
+import { AppConstants } from "../../Utils/AppConstants.js";
 import { Scraper } from "../../scraper/bookingPage/extractBookings.js";
-import { FunctionUtils } from "../../utils/functions.js";
+import { FunctionUtils } from "../../Utils/FunctionUtils.js";
 
 const cache = FunctionUtils.Cache.generateCache()
 

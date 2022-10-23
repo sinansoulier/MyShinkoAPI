@@ -5,7 +5,7 @@ import * as https from "https";
 import fs from "fs";
 
 // Files
-import { AppConstants } from "../utils/AppConstants";
+import { AppConstants } from "../Utils/AppConstants.js";
 
 // Server routes import
 import { sayHello } from "./routes/root.js";

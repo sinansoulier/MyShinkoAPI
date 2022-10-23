@@ -1,7 +1,7 @@
 // - Imports
 // Project functions
 import { fetchBody } from "./fetcher.js";
-import { FunctionUtils } from "../../utils/functions.js";
+import { FunctionUtils } from "../../Utils/FunctionUtils.js";
 
 /**
  * Get booking button information

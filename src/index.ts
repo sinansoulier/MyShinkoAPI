@@ -1,4 +1,10 @@
-import { AvailabilitiesData } from "./DataAccess/AvailabilitiesData.js";
+import { AvailabilitiesBusiness} from "./Business/AvailabilitiesBusiness.js";
+import { AvailabilitiesResponse } from "./Models/AvailabilitiesResponse.js";
 
-let availabilities = await AvailabilitiesData.getAvailabilities("2022-10-25", "2022-11-25")
-console.log(availabilities)
+// let beginDate = "2022-12-10"
+// let endDate = "2022-12-25"
+let numberOfGuests = [4, 5]
+
+// let availabilitiesResponses: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAvailabilitiesByNumberOfGuests(numberOfGuests)
+let availabilitiesResponses: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAvailabilitiesByNumberOfGuests(numberOfGuests)
+console.log(availabilitiesResponses)

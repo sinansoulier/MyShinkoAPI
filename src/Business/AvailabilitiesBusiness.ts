@@ -1,6 +1,6 @@
 import { AvailabilitiesData } from "../DataAccess/AvailabilitiesData.js";
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
-import { DateUtils } from "../utils/date.js";
+import { DateUtils } from "../Utils/DateUtils.js";
 
 class AvailabilitiesBusiness {
     /**
