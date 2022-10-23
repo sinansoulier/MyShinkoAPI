@@ -11,9 +11,17 @@ class AppConstants {
              * Shinko availabilities path
              */
             static availabilitiesPath = 'getAvailabilities'
+            static summarizedAvailabilitiesPath = 'getAvailabilitiesSummary'
         }
 
         private static shinkoID: Number = 356608
+
+        /**
+         * Shinko summarized availabilities URL
+         */
+        static summarizedAvailabilitiesURL(beginDate: string, endDate: string): string {
+            return `${this.bookingZenChefURL}${this.Path.summarizedAvailabilitiesPath}?restaurantId=${this.shinkoID}&date_begin=${beginDate}&date_end=${endDate}`
+        }
 
         /**
          * Shinko availabilities URL
