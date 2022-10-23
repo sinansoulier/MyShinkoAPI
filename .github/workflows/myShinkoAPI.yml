@@ -94,13 +94,5 @@ jobs:
           path: build
           key: typescript-${{ hashFiles('tsconfig.json') }}
 
-      - name: Generate SSL certificates
-        run: npm run generate_certificates
-
       - name: Run Server Tests
         run: npm test
-        env:
-          SHINKO_BASE_URL: "https://www.shinkoparis.fr"
-          CACHE_DURATION: "300"
-          SERVER_PORT: "3000"
-          CERTIFICATION_PATH: "certs"
