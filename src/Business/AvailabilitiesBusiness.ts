@@ -9,23 +9,31 @@ class AvailabilitiesBusiness {
      */
     static async getAllAvailabilities(): Promise<AvailabilitiesResponse[]> {
         // FIXME: Handle response errors
-        let allAvailabilitiesResponses: AvailabilitiesResponse[] = []
         let beginDate: Date = DateUtils.getCurrentDayDate()
         let endDate: Date = DateUtils.addDaysToDate(beginDate, 40)
-        for (let i = 0; i < 3; i++) {
-            let beginDateStr: string = DateUtils.getDateString(beginDate)
-            let endDateStr: string = DateUtils.getDateString(endDate)
 
-            let availabilitiesResponse: AvailabilitiesResponse[] = await AvailabilitiesData.getAvailabilities(beginDateStr, endDateStr)
-            availabilitiesResponse = availabilitiesResponse.filter(elt => elt.shifts
-                .flatMap(shift => shift.shift_slots)
-                .some(shiftSlot => shiftSlot.possible_guests.length > 0)
-            )
-            allAvailabilitiesResponses = allAvailabilitiesResponses.concat(availabilitiesResponse)
+        let beginDates: string[] = []
+        let endDates: string[] = []
+        const numberOfRequests: number = 3
+
+        for (let i = 0; i < numberOfRequests; i++) {
+            beginDates.push(DateUtils.getDateString(beginDate))
+            endDates.push(DateUtils.getDateString(endDate))
             beginDate = endDate
             endDate = DateUtils.addDaysToDate(beginDate, 40)
         }
-        return allAvailabilitiesResponses
+
+        let promises: Promise<AvailabilitiesResponse[]>[] = []
+        for (let i = 0; i < numberOfRequests; i++) {
+            promises.push(AvailabilitiesData.getAvailabilities(beginDates[i], endDates[i]))
+        }
+
+        return (await Promise.all(promises))
+                .flatMap(elt => elt)
+                .filter(elt => elt.shifts
+                    .flatMap(shift => shift.shift_slots)
+                    .some(shiftSlot => shiftSlot.possible_guests.length > 0)
+        )
     }
 
     /**
