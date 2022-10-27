@@ -44,7 +44,7 @@ class AppConstants {
             static root: string = '/'
 
             /**
-             * Get summarized availabilities route
+             * Get all summarized availabilities route
              */
             static getAllSummarizedAvailabilities: string = '/getAllSummarizedAvailabilities'
 
@@ -52,6 +52,11 @@ class AppConstants {
              * Get summarized availabilities between dates route
              */
             static getSummarizedAvailabilitiesBetweenDates: string = '/getSummarizedAvailabilitiesBetweenDates'
+
+            /**
+             * Get availabilities by number of guests route
+             */
+            static getSummarizedAvailabilitiesByNumberOfGuests: string = '/getSummarizedAvailabilitiesByNumberOfGuests'
 
             /**
              * Get all availabilities route
@@ -62,6 +67,11 @@ class AppConstants {
              * Get availabilities between dates route
              */
             static getAvailabilitiesBetweenDates: string = '/getAvailabilitiesBetweenDates'
+
+            /**
+             * Get availabilities by number of guests route
+             */
+            static getAvailabilitiesByNumberOfGuests: string = '/getAvailabilitiesByNumberOfGuests'
         }
     }
 }

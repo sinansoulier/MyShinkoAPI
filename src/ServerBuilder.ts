@@ -16,10 +16,15 @@ class ServerBuilder {
 
         this.app.use(express.json())
 
-        this.app.get(routes.getAllSummarizedAvailabilities, AvailabilitiesController.getAllSummarizedAvailabilities)
-        this.app.get(routes.getSummarizedAvailabilitiesBetweenDates, AvailabilitiesController.getSummarizedAvailabilitiesBetweenDates)
+        // Summarized availabilities
+        this.app.get(routes.getAllSummarizedAvailabilities, AvailabilitiesController.getAllSummarizedAvailabilities);
+        this.app.get(routes.getSummarizedAvailabilitiesBetweenDates, AvailabilitiesController.getSummarizedAvailabilitiesBetweenDates);
+        this.app.get(routes.getSummarizedAvailabilitiesByNumberOfGuests, AvailabilitiesController.getSummarizedAvailabilitiesByNumberOfGuests);
+
+        // Complete availabilities
         this.app.get(routes.getAllAvailabilities, AvailabilitiesController.getAllAvailabilities);
         this.app.get(routes.getAvailabilitiesBetweenDates, AvailabilitiesController.getAvailabilitiesBetweenDates);
+        this.app.get(routes.getAvailabilitiesByNumberOfGuests, AvailabilitiesController.getAvailabilitiesByNumberOfGuests);
 
         return http.createServer(this.app)
     }

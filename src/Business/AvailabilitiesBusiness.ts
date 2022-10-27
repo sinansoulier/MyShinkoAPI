@@ -106,6 +106,24 @@ class AvailabilitiesBusiness {
         return responses
     }
 
+
+    /**
+     * Get summarized availabilities with range of number of guests
+     * @param numberOfGuests{number[]} - Range of number of guests
+     */
+    static async getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests: number[]): Promise<SummarizedAvailabilitiesResponse[]> {
+        // FIXME: Handle response errors
+        let availabilitiesResponses: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
+        availabilitiesResponses = availabilitiesResponses
+            .filter(elt => elt.shifts
+                .some(shiftSlot =>
+                    numberOfGuests.every(numberOfGuest => shiftSlot.possible_guests.includes(numberOfGuest))
+                )
+            )
+
+        return availabilitiesResponses
+    }
+
     /**
      * Get availabilities with range of number of guests
      * @param numberOfGuests{number[]} - Range of number of guests
