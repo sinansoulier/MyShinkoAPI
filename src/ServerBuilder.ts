@@ -17,6 +17,7 @@ class ServerBuilder {
         this.app.use(express.json())
 
         this.app.get(routes.getAllSummarizedAvailabilities, AvailabilitiesController.getAllSummarizedAvailabilities)
+        this.app.get(routes.getSummarizedAvailabilitiesBetweenDates, AvailabilitiesController.getSummarizedAvailabilitiesBetweenDates)
         this.app.get(routes.getAllAvailabilities, AvailabilitiesController.getAllAvailabilities);
         this.app.get(routes.getAvailabilitiesBetweenDates, AvailabilitiesController.getAvailabilitiesBetweenDates);
 

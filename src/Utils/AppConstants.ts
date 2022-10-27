@@ -43,7 +43,15 @@ class AppConstants {
              */
             static root: string = '/'
 
+            /**
+             * Get summarized availabilities route
+             */
             static getAllSummarizedAvailabilities: string = '/getAllSummarizedAvailabilities'
+
+            /**
+             * Get summarized availabilities between dates route
+             */
+            static getSummarizedAvailabilitiesBetweenDates: string = '/getSummarizedAvailabilitiesBetweenDates'
 
             /**
              * Get all availabilities route

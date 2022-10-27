@@ -32,6 +32,29 @@ class AvailabilitiesController {
     }
 
     /**
+     * Get all availabilities between range of dates
+     * @param req{Request} - Request
+     * @param res{Response} - Response
+     */
+    static async getSummarizedAvailabilitiesBetweenDates(req: Request, res: Response) {
+        try {
+            let startDate: string = req.body.startDate
+            let endDate: string = req.body.endDate
+            let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByDates(startDate, endDate)
+            res.json(availabilities)
+        } catch (err) {
+            if (err.response) {
+                if (err.response.status == 404)
+                    res.status(404).json({error: "Not found"})
+                else
+                    res.status(err.response.status).json({error: err.message})
+            } else {
+                res.status(500).json({error: "Unknown error", message: err.message})
+            }
+        }
+    }
+
+    /**
      * Get all availabilities
      * @param req{Request} - Request
      * @param res{Response} - Response
