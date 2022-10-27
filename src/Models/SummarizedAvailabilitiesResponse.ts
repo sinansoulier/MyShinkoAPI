@@ -5,9 +5,6 @@ export interface SummarizedAvailabilitiesResponse {
 }
 
 export interface SummarizedShift {
-    id:                       number;
+    shiftType:                string
     possible_guests:          any[];
-    waitlist_possible_guests: any[];
-    closedBookingsAfter:      number;
-    closedBookingsBefore:     number;
 }

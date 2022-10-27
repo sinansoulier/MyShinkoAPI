@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 // Project imports
 import { AppConstants } from '../Utils/AppConstants.js'
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
-import { SummarizedAvailabilitiesResponse } from "../Models/SummarizedAvailabilitiesResponse.js";
+import {SummarizedAvailabilitiesResponse, SummarizedShift} from "../Models/SummarizedAvailabilitiesResponse.js";
 
 class AvailabilitiesData {
     /**
@@ -17,7 +17,23 @@ class AvailabilitiesData {
     static async getSummarizedAvailabilities(beginDate: string, endDate: string): Promise<SummarizedAvailabilitiesResponse[]> {
         const response = await fetch(AppConstants.Shinko.summarizedAvailabilitiesURL(beginDate, endDate))
         let responseJSON = await response.text()
-        return JSON.parse(responseJSON)
+        let responseObjects: SummarizedAvailabilitiesResponse[] = JSON.parse(responseJSON)
+        let availabilities: SummarizedAvailabilitiesResponse[] = []
+        for (let responseObject of responseObjects) {
+            let availability = {} as SummarizedAvailabilitiesResponse
+
+            availability.date = responseObject.date
+            availability.shifts = []
+            for (let responseShift of responseObject.shifts) {
+                let shift = {} as SummarizedShift
+                shift.shiftType = responseShift === responseObject.shifts[0] ? "Midi" : "Soir"
+                shift.possible_guests = responseShift.possible_guests
+                availability.shifts.push(shift)
+            }
+
+            availabilities.push(availability)
+        }
+        return availabilities
     }
 
     /**
