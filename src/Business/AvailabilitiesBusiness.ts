@@ -6,7 +6,7 @@ import { SummarizedAvailabilitiesResponse } from "../Models/SummarizedAvailabili
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
 import { DateUtils } from "../Utils/DateUtils.js";
 
-
+// FIXME: Improve shift slots filtering
 class AvailabilitiesBusiness {
     /**
      * Get all summarized availabilities without any filter

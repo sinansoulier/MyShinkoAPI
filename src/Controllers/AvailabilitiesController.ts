@@ -17,7 +17,6 @@ class AvailabilitiesController {
     static async getAllSummarizedAvailabilities(req: Request, res: Response) {
         try {
             let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -41,7 +40,6 @@ class AvailabilitiesController {
             let startDate: string = req.body.startDate
             let endDate: string = req.body.endDate
             let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByDates(startDate, endDate)
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -63,7 +61,6 @@ class AvailabilitiesController {
     static async getAllAvailabilities(req: Request, res: Response) {
         try {
             let availabilities: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllAvailabilities()
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -87,7 +84,6 @@ class AvailabilitiesController {
             let startDate: string = req.body.startDate
             let endDate: string = req.body.endDate
             let availabilities: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAvailabilitiesByDates(startDate, endDate)
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -110,7 +106,6 @@ class AvailabilitiesController {
         try {
             let numberOfGuests: number[] = req.body.numberOfGuests
             let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests)
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -133,7 +128,6 @@ class AvailabilitiesController {
         try {
             let numberOfGuests: number[] = req.body.numberOfGuests
             let availabilities: AvailabilitiesResponse[] = await AvailabilitiesBusiness.getAvailabilitiesByNumberOfGuests(numberOfGuests)
-            // FIXME: Simplify response model
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
