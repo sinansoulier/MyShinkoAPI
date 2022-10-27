@@ -11,7 +11,7 @@ describe(`GET ${AppConstants.Server.Routes.getAllAvailabilities}`, () => {
             .get(AppConstants.Server.Routes.getAllAvailabilities)
             .expect(200)
             .end(done)
-    })
+    }).timeout(0)
 });
 
 server.close()

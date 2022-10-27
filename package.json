@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
     "start": "node build/src/App.js",
-    "test": "mocha 'build/test/server/**/*.js' --recursive"
+    "test": "mocha 'build/tests/server/**/*.js' --recursive"
   },
   "keywords": [],
   "author": "",
