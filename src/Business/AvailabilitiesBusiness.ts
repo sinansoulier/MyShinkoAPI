@@ -33,11 +33,17 @@ class AvailabilitiesBusiness {
             promises.push(AvailabilitiesData.getSummarizedAvailabilities(beginDates[i], endDates[i]))
         }
 
-        return (await Promise.all(promises))
+        let summarizedAvailabilities = (await Promise.all(promises))
             .flatMap(elt => elt)
             .filter(elt => elt.shifts
                 .some(shiftSlot => shiftSlot.possible_guests.length > 0)
             )
+        summarizedAvailabilities.forEach(elt => {
+            elt.shifts = elt.shifts
+                .filter(shift => shift.possible_guests.length > 0)
+        })
+
+        return summarizedAvailabilities
     }
 
     /**
@@ -65,12 +71,23 @@ class AvailabilitiesBusiness {
             promises.push(AvailabilitiesData.getAvailabilities(beginDates[i], endDates[i]))
         }
 
-        return (await Promise.all(promises))
+        let availabilitiesResponse: AvailabilitiesResponse[] = (await Promise.all(promises))
                 .flatMap(elt => elt)
                 .filter(elt => elt.shifts
                     .flatMap(shift => shift.shift_slots)
                     .some(shiftSlot => shiftSlot.possible_guests.length > 0)
         )
+
+        availabilitiesResponse.forEach(elt => {
+            elt.shifts.forEach(shift => {
+                shift.shift_slots = shift.shift_slots
+                    .filter(shiftSlot => shiftSlot.possible_guests.length > 0)
+            })
+            elt.shifts = elt.shifts
+                .filter(shift => shift.shift_slots.length > 0)
+        })
+
+        return availabilitiesResponse
     }
 
     /**
