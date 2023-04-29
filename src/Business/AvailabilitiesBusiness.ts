@@ -2,22 +2,22 @@
 
 // Files
 import { AvailabilitiesData } from "../DataAccess/AvailabilitiesData.js";
-import { SummarizedAvailabilitiesResponse } from "../Models/SummarizedAvailabilitiesResponse.js";
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
 import { DateUtils } from "../Utils/DateUtils.js";
+import { SummarizedShift } from "../Models/SummarizedShift/SummarizedShift.js";
 
 class AvailabilitiesBusiness {
     /**
      * Get all summarized availabilities without any filter
      * @returns {Promise<AvailabilitiesResponse[]>} - Promise object represents array of summarized availabilities
      */
-    static async getAllSummarizedAvailabilities(): Promise<SummarizedAvailabilitiesResponse[]> {
+    static async getAllSummarizedAvailabilities(): Promise<AvailabilitiesResponse<SummarizedShift>[]> {
         // FIXME: Handle errors
         let beginDate: Date = DateUtils.getCurrentDayDate()
         let endDate: Date = DateUtils.addDaysToDate(beginDate, 40)
         const numberOfRequests: number = 3
 
-        let requests: Promise<SummarizedAvailabilitiesResponse[]>[] = []
+        let requests: Promise<AvailabilitiesResponse<SummarizedShift>[]>[] = []
 
         // Build requests as Promises
         for (let i = 0; i < numberOfRequests; i++) {
@@ -52,11 +52,11 @@ class AvailabilitiesBusiness {
      * Get summarized availabilities by begin and end date
      * @param beginDate{string} - Begin date
      * @param endDate{string} - End date
-     * @returns {Promise<SummarizedAvailabilitiesResponse[]>} - Promise object represents array of summarized availabilities
+     * @returns {Promise<AvailabilitiesResponse[]>} - Promise object represents array of summarized availabilities
      */
-    static async getSummarizedAvailabilitiesByDates(beginDate: string, endDate: string): Promise<SummarizedAvailabilitiesResponse[]> {
+    static async getSummarizedAvailabilitiesByDates(beginDate: string, endDate: string): Promise<AvailabilitiesResponse<SummarizedShift>[]> {
         // FIXME: Handle response errors
-        let responses: SummarizedAvailabilitiesResponse[] =  await AvailabilitiesData.getSummarizedAvailabilities(beginDate, endDate)
+        let responses: AvailabilitiesResponse<SummarizedShift>[] =  await AvailabilitiesData.getSummarizedAvailabilities(beginDate, endDate)
         responses = responses
             .filter(elt => elt.shifts
                 .some(shiftSlot => shiftSlot.possible_guests.length > 0)
@@ -68,9 +68,9 @@ class AvailabilitiesBusiness {
      * Get summarized availabilities with range of number of guests
      * @param numberOfGuests{number[]} - Range of number of guests
      */
-    static async getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests: number[]): Promise<SummarizedAvailabilitiesResponse[]> {
+    static async getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests: number[]): Promise<AvailabilitiesResponse<SummarizedShift>[]> {
         // FIXME: Handle response errors
-        let availabilitiesResponses: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
+        let availabilitiesResponses: AvailabilitiesResponse<SummarizedShift>[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
         availabilitiesResponses = availabilitiesResponses
             .filter(elt => elt.shifts
                 .some(shiftSlot =>

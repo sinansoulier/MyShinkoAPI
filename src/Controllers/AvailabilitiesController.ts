@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 // Files
 import { AvailabilitiesBusiness } from "../Business/AvailabilitiesBusiness.js";
 import { AvailabilitiesResponse } from "../Models/AvailabilitiesResponse.js";
-import { SummarizedAvailabilitiesResponse } from "../Models/SummarizedAvailabilitiesResponse.js";
+import { SummarizedShift } from "../Models/SummarizedShift/SummarizedShift.js";
 
 class AvailabilitiesController {
     /**
@@ -16,7 +16,7 @@ class AvailabilitiesController {
      */
     static async getAllSummarizedAvailabilities(req: Request, res: Response) {
         try {
-            let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
+            let availabilities: AvailabilitiesResponse<SummarizedShift>[] = await AvailabilitiesBusiness.getAllSummarizedAvailabilities()
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -39,7 +39,7 @@ class AvailabilitiesController {
         try {
             let startDate: string = req.body.startDate
             let endDate: string = req.body.endDate
-            let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByDates(startDate, endDate)
+            let availabilities: AvailabilitiesResponse<SummarizedShift>[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByDates(startDate, endDate)
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
@@ -61,7 +61,7 @@ class AvailabilitiesController {
     static async getSummarizedAvailabilitiesByNumberOfGuests(req: Request, res: Response) {
         try {
             let numberOfGuests: number[] = req.body.numberOfGuests
-            let availabilities: SummarizedAvailabilitiesResponse[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests)
+            let availabilities: AvailabilitiesResponse<SummarizedShift>[] = await AvailabilitiesBusiness.getSummarizedAvailabilitiesByNumberOfGuests(numberOfGuests)
             res.json(availabilities)
         } catch (err) {
             if (err.response) {
