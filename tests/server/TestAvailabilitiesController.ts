@@ -15,14 +15,14 @@ describe(`GET ${AppConstants.Server.Routes.getAllSummarizedAvailabilities}`, () 
     }).timeout(0)
 });
 
-describe(`GET ${AppConstants.Server.Routes.getAllAvailabilities}`, () => {
-    it('All bookings', (done) => {
-        request(server)
-            .get(AppConstants.Server.Routes.getAllAvailabilities)
-            .expect(200)
-            .end(done)
-    }).timeout(0)
-});
+// describe(`GET ${AppConstants.Server.Routes.getAllAvailabilities}`, () => {
+//     it('All bookings', (done) => {
+//         request(server)
+//             .get(AppConstants.Server.Routes.getAllAvailabilities)
+//             .expect(200)
+//             .end(done)
+//     }).timeout(0)
+// });
 
 describe(`GET ${AppConstants.Server.Routes.getSummarizedAvailabilitiesBetweenDates}`, () => {
     it('Summarized bookings between a range of dates', (done) => {
@@ -39,20 +39,20 @@ describe(`GET ${AppConstants.Server.Routes.getSummarizedAvailabilitiesBetweenDat
     }).timeout(0)
 });
 
-describe(`GET ${AppConstants.Server.Routes.getAvailabilitiesBetweenDates}`, () => {
-    it('Bookings by number of guests', (done) => {
-        let currentDate = DateUtils.getCurrentDayDate()
-        let body = {
-            "startDate": DateUtils.getDateString(currentDate),
-            "endDate": DateUtils.getDateString(DateUtils.addDaysToDate(currentDate, 40))
-        }
-        request(server)
-            .get(AppConstants.Server.Routes.getAvailabilitiesBetweenDates)
-            .send(body)
-            .expect(200)
-            .end(done)
-    }).timeout(0)
-});
+// describe(`GET ${AppConstants.Server.Routes.getAvailabilitiesBetweenDates}`, () => {
+//     it('Bookings by number of guests', (done) => {
+//         let currentDate = DateUtils.getCurrentDayDate()
+//         let body = {
+//             "startDate": DateUtils.getDateString(currentDate),
+//             "endDate": DateUtils.getDateString(DateUtils.addDaysToDate(currentDate, 40))
+//         }
+//         request(server)
+//             .get(AppConstants.Server.Routes.getAvailabilitiesBetweenDates)
+//             .send(body)
+//             .expect(200)
+//             .end(done)
+//     }).timeout(0)
+// });
 
 describe(`GET ${AppConstants.Server.Routes.getSummarizedAvailabilitiesByNumberOfGuests}`, () => {
     it('Summarized bookings by number of guests', (done) => {
@@ -65,16 +65,16 @@ describe(`GET ${AppConstants.Server.Routes.getSummarizedAvailabilitiesByNumberOf
     }).timeout(0)
 });
 
-describe(`GET ${AppConstants.Server.Routes.getAvailabilitiesByNumberOfGuests}`, () => {
-    it('Bookings by number of guests', (done) => {
-        let body = {"numberOfGuests": [2]}
-        request(server)
-            .get(AppConstants.Server.Routes.getAvailabilitiesByNumberOfGuests)
-            .send(body)
-            .expect(200)
-            .end(done)
-    }).timeout(0)
-});
+// describe(`GET ${AppConstants.Server.Routes.getAvailabilitiesByNumberOfGuests}`, () => {
+//     it('Bookings by number of guests', (done) => {
+//         let body = {"numberOfGuests": [2]}
+//         request(server)
+//             .get(AppConstants.Server.Routes.getAvailabilitiesByNumberOfGuests)
+//             .send(body)
+//             .expect(200)
+//             .end(done)
+//     }).timeout(0)
+// });
 
 
 server.close()

@@ -1,10 +1,11 @@
-export interface SummarizedAvailabilitiesResponse {
+import { SummarizedShift } from "./SummarizedShift.js";
+
+interface SummarizedAvailabilitiesResponse {
     date:   Date;
     isOpen: boolean;
     shifts: SummarizedShift[];
 }
 
-export interface SummarizedShift {
-    shiftType:                string
-    possible_guests:          any[];
+export {
+    SummarizedAvailabilitiesResponse,
 }

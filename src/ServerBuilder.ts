@@ -22,9 +22,9 @@ class ServerBuilder {
         this.app.get(routes.getSummarizedAvailabilitiesByNumberOfGuests, AvailabilitiesController.getSummarizedAvailabilitiesByNumberOfGuests);
 
         // Complete availabilities
-        this.app.get(routes.getAllAvailabilities, AvailabilitiesController.getAllAvailabilities);
-        this.app.get(routes.getAvailabilitiesBetweenDates, AvailabilitiesController.getAvailabilitiesBetweenDates);
-        this.app.get(routes.getAvailabilitiesByNumberOfGuests, AvailabilitiesController.getAvailabilitiesByNumberOfGuests);
+        // this.app.get(routes.getAllAvailabilities, AvailabilitiesController.getAllAvailabilities);
+        // this.app.get(routes.getAvailabilitiesBetweenDates, AvailabilitiesController.getAvailabilitiesBetweenDates);
+        // this.app.get(routes.getAvailabilitiesByNumberOfGuests, AvailabilitiesController.getAvailabilitiesByNumberOfGuests);
 
         return http.createServer(this.app)
     }
